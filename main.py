@@ -1,28 +1,28 @@
+from default_details import *;
+from default_validations import *;
 print ("\n\nLet's get started:\n");
-spy_name	=	raw_input("Plz enter ur secret name: ");
-spy_age		=	12;
+user_dec=raw_input("U want to continue as default user?(y/n): ");
+while(user_dec!='y' and user_dec!='Y' and user_dec!='n' and user_dec!='N'):
+    print("plz enter proper choice: ");
+    user_dec=raw_input("U want to continue as default user?(y/n): ");
+else:#new user
+    if(user_dec=='n' or user_dec=='N'):
+        spy_name=raw_input("Plz enter spy name: ");
+        while(spy_name==""):
+            spy_name=raw_input("Plz enter valid name.\nPlz enter spy name: ");
 
-i=0;
-while(i==0):
-	if(spy_name == "" or spy_name == " "):
-		print ("Plz enter correct name...\n");
-		spy_name	=	raw_input();
-	else:
-		i=1;
-
-
-spy_salutation	=	raw_input("\nPlz enter proper salutation(Mr or Mrs):");
-while(i==1):
-	if (spy_salutation == "Mr." or spy_salutation == "mr" or spy_salutation =="Mr" or spy_salutation == "Mrs." or spy_salutation == "mrs" or spy_salutation == "Mrs" or spy_salutation == "MR" or spy_salutation == "MR." or spy_salutation == "MRS" or spy_salutation == "MRS."):
-		i=0;
-	else:
-		print ("Plz enter correct salutation...\n");
-		spy_salutation	=	raw_input();
-		
-		
-spy_name	=	spy_salutation+ " " + spy_name;
-print("\n\nWelcome " +spy_name+ ".\nAur ki haal chaal.");
-
-print type(spy_age);
+        spy_salutation=raw_input("Plz enter proper Salutation(Mr./Mrs/: ");
+        while(spy_salutation.lower()!="mr." or spy_salutation.lower()!="mr" or spy_salutation.lower()!="mrs" or spy_salutation.lower()!="mrs."):
+            spy_salutation=raw_input("Plz enter proper salutation(Mr./Mrs.: ");
+        spy_name=spy_salutation.title().strip(".")+"."+" "+spy_name;
 
 
+        spy_age=int(raw_input("Plz enter age: "));
+        if(spy_age<12 or spy_age>50):
+            print ("Sry! "+spy_name+"\nU age must be between 12 to 50 to use SPY CHAT.\nThank You.");
+        else:
+            spy_rating=float(raw_input("Plz enter rating(out of 5): "));
+            while(spy_rating<0 or spy_rating>5):
+                spy_rating=float(raw_input("Plz enter proper rating(out of 5): "));
+    else:
+        
