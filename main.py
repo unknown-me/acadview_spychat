@@ -1,4 +1,3 @@
-
 print ("\n\nLet's get started:\n");
 spy_name	=	raw_input("Plz enter ur secret name: ");
 spy_age		=	12;

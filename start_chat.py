@@ -8,17 +8,16 @@ def old_status ():
 	print ("Press\n1. 0 to exit anytime.\n2. A to see all msgs.");
 	raw_input ("Press anything to continue...");
 	os.system ("cls");
-	for	i	in		status_msg:
+	for	i	in		range(len(status_msg)):
 		next_status	=	raw_input("Want to see next msg(Y/N/A/0): ");
-		print (i);
+		#print (status_msg[i]);
 		if (next_status	==	'Y'	or	next_status	==	'y'):
 			print (str(i+1)+". "+str(status_msg[i])+".");
 			i=i+1;
 			continue;
 		elif (next_status	==	"A"	or	new_status	==	"a"):
 			os.system("cls");
-			for	temp	in		status_msg:
-				i=0;
+			for	i	in		range(len(status_msg)):
 				print (str(i+1)+". "+str(status_msg[i])+".");
 				i=i+1;
 			current_choice	=	int(raw_input("\nPlz enter ur choice(Press 0 to enter new status): "));
@@ -27,7 +26,7 @@ def old_status ():
 			print ("\n\nEnter 0 if dont want to see further msgs and want to enter new status otherwise choose from above msgs: ");
 			current_choice	=	int(raw_input("Plz enter ur choice: "));
 		elif (int(next_status)	==	0):
-			pass;
+			break;
 		else:
 			print ("\n\nPlz Enter valid choice(Y/N/A/0): ");
 			i=i-1;
@@ -36,8 +35,9 @@ def old_status ():
 		current_choice	=	int(raw_input("Plz Enter your choice(Press 0 to enter new status): "));
 	if (current_choice	!=	0):
 		while (len(status_msg)<current_choice):
-			print ("Plz Enter valid choice: ");
+			current_choice=int(raw_input("Plz Enter valid choice: "));
 		print ("Ur status has been updated to: "+status_msg[current_choice-1]);
+		current_choice=0;
 		return False;
 	else:
 		os.system ("cls");
@@ -74,8 +74,6 @@ def start_chat(name,	age,	rating):
 							new_status(my_status);
 						break;
 					else:
-						my_status	=	raw_input("Plz enter status u want to update:");
-						new_status(my_status);
 						break;
 			else:
 				print ("Plz Enter valid choice: ");
