@@ -1,28 +1,71 @@
-from default_details import *;
-from default_validations import *;
-print ("\n\nLet's get started:\n");
-user_dec=raw_input("U want to continue as default user?(y/n): ");
-while(user_dec!='y' and user_dec!='Y' and user_dec!='n' and user_dec!='N'):
-    print("plz enter proper choice: ");
-    user_dec=raw_input("U want to continue as default user?(y/n): ");
-else:#new user
-    if(user_dec=='n' or user_dec=='N'):
-        spy_name=raw_input("Plz enter spy name: ");
-        while(spy_name==""):
-            spy_name=raw_input("Plz enter valid name.\nPlz enter spy name: ");
+# import statements.
+from spy_details import spy
+from start_chat import start_chat
+from globals import Spy
+from termcolor import colored
+import re
 
-        spy_salutation=raw_input("Plz enter proper Salutation(Mr./Mrs/: ");
-        while(spy_salutation.lower()!="mr." or spy_salutation.lower()!="mr" or spy_salutation.lower()!="mrs" or spy_salutation.lower()!="mrs."):
-            spy_salutation=raw_input("Plz enter proper salutation(Mr./Mrs.: ");
-        spy_name=spy_salutation.title().strip(".")+"."+" "+spy_name;
+print "Let's get started!!!"
+whole=True
+#whole variable to iterate if value is not Y/N
+while whole:
+    question = "Do you want to continue as " + spy.Name + "(Y/N) ? "
+    existing = raw_input(question)
 
+    # validating users input
+    if existing.upper() == "Y":
+        # default user
+        whole=False
+        start_chat(spy.Name, spy.Age, spy.Rating, spy.SpyOnline)
 
-        spy_age=int(raw_input("Plz enter age: "));
-        if(spy_age<12 or spy_age>50):
-            print ("Sry! "+spy_name+"\nU age must be between 12 to 50 to use SPY CHAT.\nThank You.");
-        else:
-            spy_rating=float(raw_input("Plz enter rating(out of 5): "));
-            while(spy_rating<0 or spy_rating>5):
-                spy_rating=float(raw_input("Plz enter proper rating(out of 5): "));
+    elif existing.upper() == "N":
+        # new user code here
+        whole=False
+        wholecheck=True#temporary variable
+        while(wholecheck):
+            tempcheck=True#temporary variable
+            # Validation Using Regex
+            patternsalutation='^Mr|Ms$'
+            patternname='^[A-Za-z][A-Za-z\s]+$'
+            patternage='^[0-9]+$'
+            patternrating='^[0-9]+\.[0-9]$'
+            # Validating Each Values Using Regular Expression
+            while tempcheck:
+                salutation = raw_input("Mr. or Ms.? : ")
+                if (re.match(patternsalutation, salutation) != None):
+                    tempcheck = False
+                else:
+                    print colored("Enter Again!!!!",'red')
+            tempcheck=True
+            while tempcheck:
+                spy.Name=raw_input("Enter Name: ")
+                if(re.match(patternname,spy.Name)!=None):
+                    tempcheck=False
+                else:
+                    print colored("Enter Again!!!!",'red')
+            # concatenation.
+            spy.Name = salutation + "."+spy.Name
+            tempcheck=True
+            while tempcheck:
+                 spy.Age = raw_input("Age?")
+                 if (re.match(patternage, spy.Age) != None):
+                     tempcheck = False
+                     spy.Age=int(spy.Age)
+                 else:
+                     print colored("Enter Again!!!!", 'red')
+            tempcheck=True
+            while tempcheck:
+                spy.Rating = raw_input("Spy rating?")
+                if (re.match(patternrating, spy.Rating) != None):
+                    tempcheck = False
+                    spy.Rating=float(spy.Rating)
+                else:
+                    print colored("Enter Again!!!!",'red')
+            # Checking If Spy is eligible
+            if spy.Rating <= 5.0 and spy.Age > 12 and spy.Age < 50:
+                start_chat(spy.Name,spy.Age,spy.Rating,spy.SpyOnline)
+                wholecheck=False
+            else:
+                print colored("Invalid Entry!!!!Try Again!!!",'red')
     else:
-        
+        print colored("Wrong choice. Try again",'red')
